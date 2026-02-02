@@ -15,6 +15,12 @@ interface FloatingToolbarProps {
   readOnly?: boolean; // New prop
 }
 
+// COLORS array definition moved from ColorPicker.tsx
+const COLORS = [
+    '#000000', '#1E293B', '#334155', '#64748B', '#CBD5E1', '#ffffff',
+    '#EF4444', '#F97316', '#F59E0B', '#84CC16', '#10B981', '#06B6D4', '#3B82F6', '#6366F1', '#8B5CF6', '#D946EF', '#F43F5E'
+];
+
 export const FloatingToolbar: React.FC<FloatingToolbarProps> = ({ 
   element, zoom, onUpdate, onDuplicate, onDelete, onLayerChange, readOnly = false
 }) => {
@@ -243,4 +249,72 @@ export const FloatingToolbar: React.FC<FloatingToolbarProps> = ({
                         key={font.name}
                         onMouseDown={onBtnClick(() => { onUpdate(element.id, { style: { fontFamily: font.value } }); setShowFontPicker(false); })}
                         className="w-full text-left px-3 py-2 text-xs hover:bg-slate-50 text-slate-700 block truncate"
-                        
+                    >{font.name}</button>
+                ))}
+            </div>
+        </>, 
+        document.body
+    )}
+
+    {/* Color Picker Portal */}
+    {showColorPicker && createPortal(
+        <>
+            <div className="fixed inset-0 z-[1001]" onClick={() => setShowColorPicker(false)}></div>
+            <div 
+                className="fixed bg-white border border-slate-200 shadow-xl rounded-xl w-60 max-h-64 overflow-y-auto z-[1002] animate-in fade-in zoom-in-95 custom-scrollbar"
+                style={getPopupStyle(colorBtnRef)}
+            >
+                {COLORS.map(c => (
+                    <button 
+                        key={c}
+                        onMouseDown={onBtnClick(() => { onUpdate(element.id, { style: { color: c } }); setShowColorPicker(false); })}
+                        className="w-8 h-8 rounded-full border border-slate-100 hover:scale-110 transition-transform shadow-sm"
+                        style={{ backgroundColor: c, margin: '4px' }}
+                    />
+                ))}
+                <div className="col-span-8 border-t border-slate-100 my-1"></div>
+                <div className="col-span-8 flex items-center gap-2 px-3 py-1">
+                    <span className="text-[9px] text-slate-400">Custom</span>
+                    <input type="color" value={element.style.color || '#000000'} onChange={(e) => onUpdate(element.id, { style: { color: e.target.value } })} className="flex-1 h-6 cursor-pointer rounded" />
+                </div>
+            </div>
+        </>, 
+        document.body
+    )}
+
+    {/* AI Options Portal */}
+    {element.type === 'text' && showAiOptions && createPortal(
+        <>
+            <div className="fixed inset-0 z-[1001]" onClick={() => setShowAiOptions(false)}></div>
+            <div 
+                className="fixed bg-white border border-slate-200 shadow-xl rounded-xl w-48 max-h-64 overflow-y-auto z-[1002] animate-in fade-in zoom-in-95 custom-scrollbar"
+                style={getPopupStyle(aiBtnRef)}
+            >
+                <button 
+                    onMouseDown={onBtnClick(() => handleAIComplete('このテキストをよりプロフェッショナルな表現にリライトして。'))}
+                    className="w-full text-left px-3 py-2 text-xs hover:bg-slate-50 text-slate-700 block truncate"
+                    disabled={isCompleting}
+                >
+                    <Wand2 size={14} className="inline-block mr-2"/> リライト (プロフェッショナル)
+                </button>
+                <button 
+                    onMouseDown={onBtnClick(() => handleAIComplete('このテキストをより簡潔に要約して。'))}
+                    className="w-full text-left px-3 py-2 text-xs hover:bg-slate-50 text-slate-700 block truncate"
+                    disabled={isCompleting}
+                >
+                    <Wand2 size={14} className="inline-block mr-2"/> 要約
+                </button>
+                <button 
+                    onMouseDown={onBtnClick(() => handleAIComplete('このテキストの続きを書いて。'))}
+                    className="w-full text-left px-3 py-2 text-xs hover:bg-slate-50 text-slate-700 block truncate"
+                    disabled={isCompleting}
+                >
+                    <Wand2 size={14} className="inline-block mr-2"/> 続きを書く
+                </button>
+            </div>
+        </>, 
+        document.body
+    )}
+    </>
+  );
+};
