@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#F97316" />
+    <meta name="description" content="Vision Air - AI-Powered Presentation Tool" />
+    <!-- Vision Air Logo Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='100' y1='100' x2='400' y2='400' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23F97316'/%3E%3Cstop offset='1' stop-color='%23EA580C'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='100' y1='300' x2='400' y2='500' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23FDBA74'/%3E%3Cstop offset='1' stop-color='%23F97316'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M140 320 C 140 320, 160 480, 320 440 C 400 420, 460 360, 460 360 C 460 360, 380 380, 300 360 C 240 345, 200 280, 140 320 Z' fill='url(%23b)'/%3E%3Cpath d='M120 220 C 120 220, 160 360, 320 360 C 400 360, 480 280, 480 280 C 480 280, 380 320, 300 300 C 220 280, 180 180, 120 220 Z' fill='%23FED7AA' opacity='0.6'/%3E%3Cpath d='M100 140 C 100 140, 150 280, 320 280 C 420 280, 480 200, 480 200 C 480 200, 380 240, 300 220 C 200 190, 180 80, 100 140 Z' fill='url(%23a)'/%3E%3C/svg%3E">
+    <link rel="manifest" href="/manifest.json" />
+    <title>Vision Air</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Extended Font Collection -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;700;900&family=M+PLUS+Rounded+1c:wght@400;700;900&family=Inter:wght@400;600;800&family=Roboto:wght@400;700&family=Montserrat:wght@400;700;900&family=Lato:wght@400;700&family=Poppins:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Merriweather:wght@400;700&family=Oswald:wght@400;700&family=Raleway:wght@400;700&family=Dela+Gothic+One&family=DotGothic16&family=Zen+Maru+Gothic:wght@300;400;500;700;900&family=Kaisei+Decol:wght@400;500;700&family=Yuji+Syuku&family=Hina+Mincho&family=Potta+One&family=Reggae+One&family=RocknRoll+One&family=Stick&family=Train+One&family=Yusei+Magic&family=Klee+One:wght@400;600&family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=M+PLUS+1p:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                primary: 'var(--brand-primary)', 
+                primaryHover: 'var(--brand-primary-hover)',
+                secondary: 'var(--brand-secondary)',
+                accent: '#8B5CF6', 
+                dark: '#1E293B',
+              },
+            },
+            fontFamily: {
+              sans: ['"Noto Sans JP"', 'Inter', 'Roboto', 'sans-serif'],
+              serif: ['"Noto Serif JP"', 'Merriweather', 'serif'],
+              rounded: ['"M PLUS Rounded 1c"', 'sans-serif'],
+              display: ['Montserrat', 'Poppins', 'sans-serif'],
+              modern: ['Lato', 'Raleway', 'sans-serif'],
+              impact: ['Oswald', 'Dela Gothic One', 'sans-serif'],
+              mono: ['DotGothic16', 'monospace'],
+            },
+            borderRadius: {
+              'xl': '0.75rem',
+              '2xl': '1rem',
+              '3xl': '1.5rem',
+            },
+            boxShadow: {
+              glass: '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+              'glass-hover': '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+              'card-depth': '0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04)',
+              floating: '0 20px 40px -5px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.05)',
+              'glow-primary': '0 0 15px var(--brand-primary-transparent)',
+              'inner-soft': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+            },
+            animation: {
+              'in': 'animate-in 0.3s cubic-bezier(0.2, 0, 0, 1)', // MS-like ease
+              'out': 'animate-out 0.2s cubic-bezier(0.2, 0, 0, 1)',
+              'fade-in': 'fadeIn 0.6s cubic-bezier(0.2, 0, 0, 1)',
+              'slide-up': 'slideUp 0.6s cubic-bezier(0.2, 0, 0, 1)',
+              'slide-down': 'slideDown 0.6s cubic-bezier(0.2, 0, 0, 1)',
+              'slide-left': 'slideLeft 0.6s cubic-bezier(0.2, 0, 0, 1)',
+              'slide-right': 'slideRight 0.6s cubic-bezier(0.2, 0, 0, 1)',
+              'zoom-in': 'zoomIn 0.6s cubic-bezier(0.2, 0, 0, 1)',
+              'pop': 'pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+              'bounce-in': 'bounceIn 0.8s cubic-bezier(0.2, 0, 0, 1)',
+              'rotate-in': 'rotateIn 0.6s cubic-bezier(0.2, 0, 0, 1)',
+              'float': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: 0 },
+                '100%': { opacity: 1 }
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(40px)', opacity: 0 },
+                '100%': { transform: 'translateY(0)', opacity: 1 }
+              },
+              slideDown: {
+                '0%': { transform: 'translateY(-40px)', opacity: 0 },
+                '100%': { transform: 'translateY(0)', opacity: 1 }
+              },
+              slideLeft: {
+                '0%': { transform: 'translateX(-40px)', opacity: 0 },
+                '100%': { transform: 'translateX(0)', opacity: 1 }
+              },
+              slideRight: {
+                '0%': { transform: 'translateX(40px)', opacity: 0 },
+                '100%': { transform: 'translateX(0)', opacity: 1 }
+              },
+              zoomIn: {
+                '0%': { transform: 'scale(0.8)', opacity: 0 },
+                '100%': { transform: 'scale(1)', opacity: 1 }
+              },
+              pop: {
+                '0%': { transform: 'scale(0.5)', opacity: 0 },
+                '70%': { transform: 'scale(1.1)' },
+                '100%': { transform: 'scale(1)', opacity: 1 }
+              },
+              bounceIn: {
+                '0%': { opacity: 0, transform: 'scale(0.3)' },
+                '50%': { opacity: 1, transform: 'scale(1.05)' },
+                '70%': { transform: 'scale(0.9)' },
+                '100%': { transform: 'scale(1)' }
+              },
+              rotateIn: {
+                  '0%': { opacity: 0, transform: 'rotate(-45deg) scale(0.9)' },
+                  '100%': { opacity: 1, transform: 'rotate(0) scale(1)' }
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              shimmer: {
+                '100%': { transform: 'translateX(100%)' }
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      :root {
+        --brand-primary: #F97316;
+        --brand-primary-hover: #EA580C;
+        --brand-secondary: #3B82F6;
+        --brand-primary-transparent: rgba(249, 115, 22, 0.3);
+        --bg-app: #f8fafc;
+      }
+
+      /* Gooey Effect Filters */
+      .goo-filter {
+        filter: url('#goo');
+      }
+
+      /* Dark Theme Overrides */
+      .dark {
+        --bg-app: #0f172a;
+        color: #f1f5f9;
+      }
+      .dark body {
+        background: #0f172a;
+        color: #f1f5f9;
+      }
+      .dark .bg-white { background-color: #1e293b; color: #f8fafc; }
+      .dark .bg-slate-50 { background-color: #0f172a; }
+      .dark .bg-slate-100 { background-color: #334155; }
+      .dark .text-slate-800 { color: #f1f5f9; }
+      .dark .text-slate-700 { color: #e2e8f0; }
+      .dark .text-slate-600 { color: #cbd5e1; }
+      .dark .text-slate-500 { color: #94a3b8; }
+      .dark .text-slate-400 { color: #64748B; }
+      .dark .border-slate-200 { border-color: #334155; }
+      .dark .border-slate-100 { border-color: #1e293b; }
+      .dark input, .dark select, .dark textarea {
+        background-color: #0f172a;
+        border-color: #334155;
+        color: #f1f5f9;
+      }
+
+      body {
+        background: var(--bg-app);
+        overflow: hidden;
+        font-family: "Noto Sans JP", sans-serif;
+        color: #334155;
+        overscroll-behavior: none;
+        transition: background-color 0.5s ease, color 0.5s ease;
+        touch-action: none; /* Prevent default touch actions generally */
+      }
+      
+      /* Premium Noise Texture */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.4;
+      }
+
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      }
+      .dark .glass-panel {
+        background: rgba(30, 41, 59, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+      
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(203, 213, 225, 0.6);
+        border-radius: 99px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--brand-primary);
+      }
+      
+      .canvas-shadow {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0,0,0,0.02);
+      }
+      
+      input[type=range] {
+        -webkit-appearance: none; 
+        background: transparent; 
+      }
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        background: #ffffff;
+        cursor: pointer;
+        margin-top: -6px; 
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        border: 1px solid #e2e8f0;
+        transition: transform 0.1s;
+      }
+      input[type=range]::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+        border-color: var(--brand-primary);
+      }
+      input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 4px;
+        cursor: pointer;
+        background: #e2e8f0;
+        border-radius: 2px;
+      }
+      input[type=range]:focus::-webkit-slider-runnable-track {
+        background: #cbd5e1;
+      }
+      .dark input[type=range]::-webkit-slider-thumb {
+        background: #334155;
+        border-color: #475569;
+      }
+      .dark input[type=range]::-webkit-slider-runnable-track {
+        background: #475569;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0",
+    "html2canvas": "https://esm.sh/html2canvas@1.4.1",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24",
+    "firebase/": "https://aistudiocdn.com/firebase@^12.6.0/",
+    "path": "https://aistudiocdn.com/path@^0.12.7",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "vite": "https://aistudiocdn.com/vite@^7.2.6",
+    "url": "https://aistudiocdn.com/url@^0.11.4",
+    "pptxgenjs": "https://esm.sh/pptxgenjs@3.12.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+    
+    <!-- SVG Filter for Liquid Gooey Effect -->
+    <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />    
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+            </filter>
+        </defs>
+    </svg>
+  </body>
+</html>
